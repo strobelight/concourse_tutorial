@@ -14,13 +14,14 @@ services:
     command: quickstart
     privileged: true
     depends_on: [concourse-db]
-    ports: ["8080:8080"]
+    ports: ["${CONCOURSE_LOCAL_PORT}:8080"]
     environment:
+      CONCOURSE_LOCAL_PORT: ${CONCOURSE_LOCAL_PORT}
       CONCOURSE_POSTGRES_HOST: concourse-db
       CONCOURSE_POSTGRES_USER: concourse_user
       CONCOURSE_POSTGRES_PASSWORD: concourse_pass
       CONCOURSE_POSTGRES_DATABASE: concourse
-      CONCOURSE_EXTERNAL_URL: http://localhost:8080
+      CONCOURSE_EXTERNAL_URL: http://localhost:${CONCOURSE_LOCAL_PORT}
       CONCOURSE_ADD_LOCAL_USER: admin:admin
       CONCOURSE_MAIN_TEAM_LOCAL_USER: admin
       # instead of relying on the default "detect"
